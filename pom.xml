@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>Baeldung_OpenApi_Generator</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>3.5.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>3.5.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.19</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <version>3.5.7</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.11.4</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.squareup.okhttp3</groupId>-->
+        <!--            <artifactId>okhttp</artifactId>-->
+        <!--            <version>5.1.0</version>-->
+        <!--            <scope>compile</scope>-->
+        <!--        </dependency>-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.5.0</version>
+
+                <executions>
+                    <execution>
+                        <id>generate-models</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+
+                        <configuration>
+
+                            <!-- Path to your external API spec -->
+                            <inputSpec>${project.basedir}/src/main/resources/dog-api.yaml</inputSpec>
+                            <generatorName>java</generatorName>
+                            <!-- Java code generator -->
+                            <!--                            <generatorName>java</generatorName>-->
+
+                            <!-- Output directory -->
+                            <!--                            <output>${project.build.directory}/generated-sources/openapi</output>-->
+                            <!-- Generate ONLY POJOs (no API client) -->
+                            <!--                            <globalProperties>-->
+                            <!--                                <models>true</models>-->
+                            <!--                            </globalProperties>-->
+                            <globalProperties>
+                                <models/>
+                                <!--                                <apis>false</apis>-->
+                                <!--                                <generateApiDocumentation>false</generateApiDocumentation>-->
+                                <!--                                <supportingFiles>false</supportingFiles>-->
+                                <generateConstructorWithRequiredArgs>false</generateConstructorWithRequiredArgs>
+                                                                <modelTests>false</modelTests>
+                                                                <apiTests>false</apiTests>
+                            </globalProperties>
+
+
+                            <!-- Optional: configure Java model style -->
+                            <configOptions>
+<!--                                <useJUnit>true</useJUnit>-->
+                                <dateLibrary>java17</dateLibrary>
+                                <useJakartaEe>true</useJakartaEe>
+                                <!--suppress UnresolvedMavenProperty -->
+<!--                                <additionalModelTypeAnnotations>@lombok.Data @lombok.NoArgsConstructor @lombok.AllArgsConstructor</additionalModelTypeAnnotations>-->
+                                <library>rest-assured</library>
+                                <serializationLibrary>jackson</serializationLibrary>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.openapitools</groupId>-->
+<!--                <artifactId>openapi-generator-maven-plugin</artifactId>-->
+<!--                <version>7.5.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>generate-models</id>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <configuration>-->
+<!--                            <inputSpec>-->
+<!--                                ${project.basedir}/src/main/resources/dog-api.yaml-->
+<!--                            </inputSpec>-->
+<!--                            &lt;!&ndash;                            <generatorName>spring</generatorName>&ndash;&gt;-->
+<!--                            <apiPackage>org.example.api</apiPackage>-->
+<!--                            <modelPackage>org.example.model</modelPackage>-->
+<!--                            <generateModels>true</generateModels>-->
+<!--                            &lt;!&ndash;                            <generateModelTests>true</generateModelTests>&ndash;&gt;-->
+<!--                            <generatorName>spring</generatorName>-->
+<!--                            <generateApiTests>false</generateApiTests>-->
+<!--                            <generateModelTests>false</generateModelTests>-->
+<!--                            &lt;!&ndash;                            <supportingFilesToGenerate>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                ApiUtil.java&ndash;&gt;-->
+<!--                            &lt;!&ndash;                            </supportingFilesToGenerate>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                            <invokerPackage>org.example.invoker</invokerPackage>&ndash;&gt;-->
+<!--                            <configOptions>-->
+<!--                                                                <library>rest-assured</library>-->
+<!--                                                                <serializationLibrary>jackson</serializationLibrary>-->
+<!--                                <useJUnit>true</useJUnit>-->
+<!--                                <dateLibrary>java17</dateLibrary>-->
+<!--&lt;!&ndash;                                <delegatePattern>true</delegatePattern>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <useSpringBoot3>true</useSpringBoot3>&ndash;&gt;-->
+<!--                                <useJakartaEe>true</useJakartaEe>-->
+<!--                                &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+<!--                                <additionalModelTypeAnnotations>@lombok.Data @lombok.NoArgsConstructor-->
+<!--                                    @lombok.AllArgsConstructor-->
+<!--                                </additionalModelTypeAnnotations>-->
+<!--                            </configOptions>-->
+<!--                            <globalProperties>-->
+<!--                                <models/>-->
+<!--&lt;!&ndash;                                                                <apis>false</apis>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                <generateApiDocumentation>false</generateApiDocumentation>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                <supportingFiles>false</supportingFiles>&ndash;&gt;-->
+<!--                                <generateConstructorWithRequiredArgs>false</generateConstructorWithRequiredArgs>-->
+<!--                                &lt;!&ndash;                                <modelTests>true</modelTests>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                <apiTests>false</apiTests>&ndash;&gt;-->
+<!--                            </globalProperties>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.5.0</version>
+            </plugin>
+        </plugins>
+
+    </build>
+</project>

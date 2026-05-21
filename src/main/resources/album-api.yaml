@@ -1,0 +1,43 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: Album Store
+  license:
+    name: MIT
+
+servers:
+  - url: https://jsonplaceholder.typicode.com
+    description: Practice API models generation
+paths:
+  /albums:
+    get:
+      tags:
+        - album
+      summary: Get all albums
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Album'
+        404:
+          description: Album not found
+          content: { }
+components:
+  schemas:
+    Album:
+      type: object
+      required:
+        - userId
+        - id
+        - title
+      properties:
+        userId:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
